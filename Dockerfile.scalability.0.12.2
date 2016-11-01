@@ -19,10 +19,10 @@ RUN ./dhus-software-0.12.2-distribution.shar
 # configuration
 RUN sed -i -- 's/Xms12g/Xms512m/g; s/Xmx12g/Xmx512m/g' start.sh
 RUN sed -i -- 's/local_dhus/\/local_dhus\/var/g; ' etc/dhus.xml
-RUN sed -i '/Ddhus.scalability.active=true/ a -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=8081 -Dhttp.nonProxyHosts="127.0.0.*" -Djava.rmi.server.hostname=127.0.0.1 -Ddhus.scalability.local.protocol=http -Ddhus.scalability.local.port=8081 -Ddhus.scalability.local.path=/ \\' start.sh         
+RUN sed -i '/Ddhus.scalability.active=true/ a -Dhttp.proxyHost=$1 -Dhttp.proxyPort=$2 -Dhttp.nonProxyHosts="127.0.0.*" -Djava.rmi.server.hostname=$3 -Ddhus.scalability.local.protocol=http -Ddhus.scalability.local.port=$4 -Ddhus.scalability.local.path=/ \\' start.sh
 
 EXPOSE 8081
 
-#ENTRYPOINT ["./start.sh" ]
+ENTRYPOINT ["./start.sh" ]
 #CMD ["127.0.0.1"]
-CMD ["./start.sh"]
+#CMD ["./start.sh"]
